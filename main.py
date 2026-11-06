@@ -26,5 +26,12 @@ def predict(request: PromptRequest):
     end = time.time()
 
     data = response.json()
+    tokens = data["eval_count"]
+    gen_seconds = data["eval_duration"] / 1_000_000_000
+    tokens_per_second = round(tokens / gen_seconds, 2)
+
     return {"ai_response": data["response"],
-            "latency_seconds": round(end - start, 2)}
+            "latency_seconds": round(end - start, 2),
+            "tokens_generated": tokens,
+            "tokens_per_second": tokens_per_second
+            }
