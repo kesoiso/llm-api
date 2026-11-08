@@ -3,8 +3,9 @@ from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 import time
 import requests
+import os
 app = FastAPI()
-Ollama_URL = "http://host.docker.internal:11434/api/generate"
+Ollama_URL = os.getenv("OLLAMA_URL", "http://localhost:11434/api/generate")
 
 class PromptRequest(BaseModel):
     prompt: str
